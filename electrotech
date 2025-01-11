@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Specs</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #5a67d8;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        main {
+            padding: 1em;
+        }
+
+        .form-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 1em;
+            margin-bottom: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            background-color: #5a67d8;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #434ba1;
+        }
+
+        .mobile-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .mobile-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 1em;
+            text-align: center;
+        }
+
+        .mobile-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1em;
+        }
+
+        .mobile-card h2 {
+            color: #5a67d8;
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .mobile-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .mobile-card li {
+            margin: 0.5em 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background: #f4f4f4;
+            border-top: 1px solid #ddd;
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mobile Specifications</h1>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Add a New Mobile</h2>
+            <form id="mobileForm">
+                <input type="text" id="mobileName" placeholder="Mobile Name" required>
+                <input type="text" id="mobileImage" placeholder="Image URL (optional)">
+                <textarea id="mobileSpecs" placeholder="Enter specifications (e.g., Display, Processor, RAM, etc.)" rows="5" required></textarea>
+                <button type="submit">Add Mobile</button>
+            </form>
+        </div>
+        <div class="mobile-list" id="mobileList">
+            <!-- Dynamic content will appear here -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Mobile Specs Inc.</p>
+    </footer>
+
+    <script>
+        const initialMobiles = [
+            {
+                name: "Realme GT 6T",
+                image: "https://via.placeholder.com/200",
+                specs: [
+                    "Display: 6.74-inch AMOLED, 120Hz",
+                    "Processor: Snapdragon 8 Gen 2",
+                    "RAM: 12GB",
+                    "Storage: 256GB / 512GB",
+                    "Camera: 64MP + 8MP + 2MP",
+                    "Battery: 5000mAh, 65W fast charging"
+                ]
+            },
+            {
+                name: "OnePlus Nord 4",
+                image: "https://via.placeholder.com/200",
+                specs: [
+                    "Display: 6.7-inch Fluid AMOLED, 120Hz",
+                    "Processor: MediaTek Dimensity 1200",
+                    "RAM: 8GB / 12GB",
+                    "Storage: 128GB / 256GB",
+                    "Camera: 50MP + 8MP + 2MP",
+                    "Battery: 4500mAh, 65W fast charging"
+                ]
+            }
+        ];
+
+        const mobileList = document.getElementById('mobileList');
+
+        function createMobileCard(mobile) {
+            const mobileCard = document.createElement('div');
+            mobileCard.classList.add('mobile-card');
+            mobileCard.innerHTML = `
+                <h2>${mobile.name}</h2>
+                <img src="${mobile.image}" alt="${mobile.name}">
+                <ul>
+                    ${mobile.specs.map(spec => `<li>${spec}</li>`).join('')}
+                </ul>
+            `;
+            mobileList.appendChild(mobileCard);
+        }
+
+        // Load initial mobiles
+        initialMobiles.forEach(createMobileCard);
+
+        // Handle form submission
+        document.getElementById('mobileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('mobileName').value;
+            const image = document.getElementById('mobileImage').value || 'https://via.placeholder.com/200';
+            const specs = document.getElementById('mobileSpecs').value.split(',').map(spec => spec.trim());
+
+            const newMobile = { name, image, specs };
+            createMobileCard(newMobile);
+
+            document.getElementById('mobileForm').reset();
+        });
+    </script>
+</body>
+</html>
